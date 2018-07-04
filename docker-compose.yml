@@ -1,0 +1,12 @@
+version: '2.1'
+
+services:
+  hub:
+    build:
+      context: ./
+      dockerfile: Dockerfile.jupyterhub
+    network_mode: host
+    env_file:
+      - ./jupyterhub.env
+    volumes:
+      - ./jupyterhub/home:/home
