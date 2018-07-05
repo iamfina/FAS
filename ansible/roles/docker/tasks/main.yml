@@ -1,0 +1,38 @@
+---
+- name: Install packages packages for docker
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - yum-utils
+    - device-mapper-persistent-data
+    - lvm2
+    - python-pip
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+- name: Add repository
+  yum_repository:
+    name: docker
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+- name: Install docker
+  yum:
+    name: docker-ce
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    executable: pip
+  tags:
+    - prepare
+    - docker
