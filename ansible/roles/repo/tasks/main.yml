@@ -1,0 +1,43 @@
+---
+- name: Add github to know_hosts
+  known_hosts:
+    key: "{{ lookup('file', 'pubkeys/github.com.pub') }}"
+    name: github.com
+  tags:
+    - initial
+    - repo
+
+- name: Add deploy key for repositary access
+  copy:
+    src: "{{ deploy_key_path }}"
+    dest: "~/.ssh/id_rsa"
+    mode: 0400
+  tags:
+    - initial
+    - repo
+
+- name: Add deploy public key for repositary access
+  copy:
+    src: "{{ deploy_key_path }}.pub"
+    dest: "~/.ssh/id_rsa.pub"
+    mode: 0644
+  tags:
+    - initial
+    - repo
+
+- name: Install git
+  yum:
+    name: "git"
+  become: yes
+  tags:
+    - initial
+    - repo
+
+- name: Clone or update repo
+  git:
+    repo: git@github.com:ods-ai-ml4sg/proj_procurement.git
+    dest: proj_procurement
+  tags:
+    - initial
+    - update
+    - repo

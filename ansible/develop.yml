@@ -1,9 +1,10 @@
 ---
 - hosts: develop
   roles:
+    - repo
     - docker
     - hub
     - proxy
   vars:
     hub:
-      domain: "{{ hub.pp.pnz.ru }}"
+      domain: "hub.pp.pynz.ru"

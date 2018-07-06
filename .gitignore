@@ -1,6 +1,17 @@
+# IDEs
 .idea
 .vscode
+
+# Python
 __pycache__
 *.pyc
+
+# Environment and data
 jupyterhub.env
 jupyterhub/home
+
+# For develop
+temp
+
+# Ansbile
+*.retry
