@@ -52,3 +52,11 @@
   tags:
     - prepare
     - docker
+
+- name: Create a network
+  docker_network:
+    name: pp_net
+  become: yes
+  tags:
+    - prepare
+    - docker
