@@ -20,12 +20,20 @@
     recreate: yes
     networks:
       - name: pp_net
+    expose:
+      - 8000
     env:
       OAUTH_CLIENT_ID: "{{ lookup('env','OAUTH_CLIENT_ID') }}"
       OAUTH_CLIENT_SECRET: "{{ lookup('env','OAUTH_CLIENT_SECRET') }}"
       OAUTH_CALLBACK_URL: "{{ lookup('env','OAUTH_CALLBACK_URL') }}"
     volumes:
       - ./proj_procurement/jupyterhub/home:/home
+    labels:
+      traefik.backend: "pp"
+      traefik.docker.network: "pp_net"
+      traefik.basic.frontend.rule: "Host:pp.pynz.ru"
+      traefik.enable: "true"
+      traefik.port: "8000"
   become: yes
   tags:
     - initial
