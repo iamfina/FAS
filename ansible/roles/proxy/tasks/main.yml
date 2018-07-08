@@ -25,10 +25,12 @@
     networks:
       - name: pp_net
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/etc/traefik/traefik.toml
+      - /var/run/docker.sock:/var/run/docker.sock:Z
+      - ./traefik.toml:/etc/traefik/traefik.toml:Z
+      - ./acme.json:/etc/traefik/acme.json:Z
     ports:
       - "80:80"
+      - "443:443"
       - "8080:8080"
   become: yes
   tags:

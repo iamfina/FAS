@@ -21,19 +21,19 @@
     networks:
       - name: pp_net
     expose:
-      - 8000
+      - "{{ hub.port }}"
     env:
       OAUTH_CLIENT_ID: "{{ lookup('env','OAUTH_CLIENT_ID') }}"
       OAUTH_CLIENT_SECRET: "{{ lookup('env','OAUTH_CLIENT_SECRET') }}"
       OAUTH_CALLBACK_URL: "{{ lookup('env','OAUTH_CALLBACK_URL') }}"
     volumes:
-      - ./proj_procurement/jupyterhub/home:/home
+      - ./proj_procurement/jupyterhub/home:/home:Z
     labels:
-      traefik.backend: "pp"
+      traefik.backend: "hub"
       traefik.docker.network: "pp_net"
-      traefik.basic.frontend.rule: "Host:pp.pynz.ru"
+      traefik.basic.frontend.rule: "Host:{{ hub.domain }}"
       traefik.enable: "true"
-      traefik.port: "8000"
+      traefik.port: "{{ hub.port }}"
   become: yes
   tags:
     - initial
