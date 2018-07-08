@@ -8,3 +8,5 @@
   vars:
     hub:
       domain: "hub.pp.pynz.ru"
+      name: "hub"
+      port: "8000"

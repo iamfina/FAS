@@ -11,10 +11,11 @@
     - initial
     - update
     - hub
+    - hub_update
 
 - name: Start or update container
   docker_container:
-    name: hub
+    name: "{{ hub.name }}"
     image: "pp/hub:latest"
     state: started
     recreate: yes
@@ -29,7 +30,7 @@
     volumes:
       - ./proj_procurement/jupyterhub/home:/home:Z
     labels:
-      traefik.backend: "hub"
+      traefik.backend: "{{ hub.name }}"
       traefik.docker.network: "pp_net"
       traefik.basic.frontend.rule: "Host:{{ hub.domain }}"
       traefik.enable: "true"
@@ -39,4 +40,5 @@
     - initial
     - update
     - hub
+    - hub_update
 
