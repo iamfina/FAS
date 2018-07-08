@@ -1,0 +1,42 @@
+- name: Build an hub image
+  docker_image:
+    path: ./proj_procurement
+    dockerfile: Dockerfile.jupyterhub
+    name: pp/hub
+    tag: latest
+    state: present
+    force: yes
+  become: yes
+  tags:
+    - initial
+    - update
+    - hub
+
+- name: Start or update container
+  docker_container:
+    name: hub
+    image: "pp/hub:latest"
+    state: started
+    recreate: yes
+    networks:
+      - name: pp_net
+    expose:
+      - "{{ hub.port }}"
+    env:
+      OAUTH_CLIENT_ID: "{{ lookup('env','OAUTH_CLIENT_ID') }}"
+      OAUTH_CLIENT_SECRET: "{{ lookup('env','OAUTH_CLIENT_SECRET') }}"
+      OAUTH_CALLBACK_URL: "{{ lookup('env','OAUTH_CALLBACK_URL') }}"
+    volumes:
+      - ./proj_procurement/jupyterhub/home:/home:Z
+    labels:
+      traefik.backend: "hub"
+      traefik.docker.network: "pp_net"
+      traefik.basic.frontend.rule: "Host:{{ hub.domain }}"
+      traefik.enable: "true"
+      traefik.port: "{{ hub.port }}"
+  become: yes
+  tags:
+    - initial
+    - update
+    - hub
+

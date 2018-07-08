@@ -1,0 +1,62 @@
+---
+- name: Install packages for docker and pip
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - yum-utils
+    - libyaml
+    - device-mapper-persistent-data
+    - lvm2
+    - epel-release
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+- name: Install python-pip
+  yum:
+    name: "python-pip"
+  become: yes
+  tags:
+    - initial
+    - docker
+
+# Возможно не корректно добавился, repolist выдает:
+# Bad id for repo: Docker CE Stable - x86_64, byte =   6.
+- name: Add repository
+  yum_repository:
+    name: "Docker CE Stable - $basearch"
+    description: "Docker CE container engine"
+    baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+    gpgkey: https://download.docker.com/linux/centos/gpg
+    gpgcheck: yes
+  become: yes
+  tags:
+    - prepare
+    - docker
+# Ставился изначально руками, работоспособность надо проверять еще.
+- name: Install docker
+  yum:
+    name: docker
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+# Пришлось руками ставить , используя sudo, потом добавил become должно работать.
+- name: Install docker-compose
+  pip:
+    name: docker-compose
+    executable: pip
+  become: yes
+  tags:
+    - prepare
+    - docker
+
+- name: Create a network
+  docker_network:
+    name: pp_net
+  become: yes
+  tags:
+    - prepare
+    - docker

@@ -1,0 +1,40 @@
+- name: Create acme.json
+  file:
+    path: ./acme.json
+    state: touch
+    mode: 0600
+  tags:
+    - initial
+    - acme
+
+- name: Create traefik config file
+  template:
+    src: traefik.j2
+    dest: "./traefik.toml"
+  tags:
+    - initial
+    - update
+    - proxy
+
+- name: Create traefik container
+  docker_container:
+    name: traefik
+    image: "traefik:1.6.4"
+    state: started
+    recreate: yes
+    networks:
+      - name: pp_net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:Z
+      - ./traefik.toml:/etc/traefik/traefik.toml:Z
+      - ./acme.json:/etc/traefik/acme.json:Z
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+  become: yes
+  tags:
+    - initial
+    - update
+    - proxy
+
