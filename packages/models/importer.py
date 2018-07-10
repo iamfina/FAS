@@ -1,8 +1,11 @@
+import sys
 import csv
 from functools import partial
 from typing import Callable, Optional, List
 from pony import orm
 from models import RawFas, FAS_FIELDS_NAMES
+
+csv.field_size_limit(sys.maxsize)
 
 __slots__ = []
 
