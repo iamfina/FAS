@@ -5,6 +5,7 @@ from distutils.core import setup
 
 install_requires = [
     "pony>=0.7.3",
+    "psycopg2-binary>=2.7.5"
 ]
 
 setup(
