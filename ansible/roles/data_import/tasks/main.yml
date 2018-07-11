@@ -1,0 +1,22 @@
+- name: Install p7zip
+  yum:
+    name: p7zip
+  become: yes
+  tags:
+    - install_7zip
+    - data_import
+
+- name: Download data file
+  get_url:
+    url: "{{ data_url }}"
+    dest: "~/proj_procurement/{{ data_file_name }}"
+    mode: 0664
+  tags:
+    - download_file
+    - data_import
+
+- name: Extract all files
+  command: "7za x ~/proj_procurement/{{ data_file_name }}"
+  tags:
+    - extract_archive
+    - data_import
