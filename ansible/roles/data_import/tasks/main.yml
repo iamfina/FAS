@@ -1,7 +1,7 @@
 - name: Build an hub image
   docker_image:
     path: ./proj_procurement/packages/models
-    dockerfile: ./proj_procurement/dockerfiles/importer.jupyterhub
+    dockerfile: ./proj_procurement/dockerfiles/importer.Dockerfile
     name: pp/importer
     tag: latest
     state: present
