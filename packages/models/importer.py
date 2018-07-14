@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import sys
 import csv
 from functools import partial

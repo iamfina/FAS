@@ -4,7 +4,7 @@ services:
   hub:
     build:
       context: ./
-      dockerfile: Dockerfile.jupyterhub
+      dockerfile: dockerfiles/jupyterhub.Dockerfile
     network_mode: host
     env_file:
       - ./jupyterhub.env
