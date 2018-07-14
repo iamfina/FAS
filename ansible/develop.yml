@@ -5,6 +5,7 @@
     - docker
     - hub
     - proxy
+    - postgres
   vars:
     hub:
       domain: "hub.pp.pynz.ru"

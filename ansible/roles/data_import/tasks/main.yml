@@ -1,0 +1,53 @@
+- name: Build an hub image
+  docker_image:
+    path: ./proj_procurement/packages/models
+    dockerfile: ./proj_procurement/dockerfiles/importer.jupyterhub
+    name: pp/importer
+    tag: latest
+    state: present
+    force: yes
+  become: yes
+  tags:
+    - build_data_import_image
+
+- name: Install p7zip
+  yum:
+    name: p7zip
+  become: yes
+  tags:
+    - install_7zip
+
+- name: Download data file
+  get_url:
+    url: "{{ data_url }}"
+    dest: "~/proj_procurement/{{ data_file_name }}"
+    mode: 0664
+  tags:
+    - download_file
+    - data_import
+
+- name: Extract all files
+  command: "7za x ~/proj_procurement/{{ data_file_name }}"
+  tags:
+    - extract_archive
+    - data_import
+
+- name: Start import
+  docker_container:
+    name: "data_importer"
+    image: "pp/importer:latest"
+    state: started
+    networks:
+      - name: pp_net
+    volumes:
+      - "~/proj_procurement/{{ data_file_name }}:/app/data.csv:Z"
+    command: "python importer.py --file_name data.csv --class_name fas"
+    env:
+      POSTGRES_USER: "{{ postgres_user }}"
+      POSTGRES_PASSWORD: "{{ postgres_password }}"
+      POSTGRES_DATABASE: "{{ postgres_db }}"
+      POSTGRES_HOST: "{{ postgres_host }}"
+  become: yes
+  tags:
+    - import_container
+    - data_import

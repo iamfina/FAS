@@ -1,0 +1,5 @@
+---
+- hosts: develop
+  roles:
+    - {role: repo, tags: ["update_repo"]}
+    - data_import
