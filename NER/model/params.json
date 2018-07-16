@@ -1,0 +1,12 @@
+{
+  "filter_width": 7,
+  "embeddings_dropout": true,
+  "n_filters": [
+    128,
+    256
+  ],
+  "token_embeddings_dim": 128,
+  "char_embeddings_dim": 50,
+  "use_batch_norm": true,
+  "use_crf": true
+}
