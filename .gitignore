@@ -7,8 +7,10 @@ __pycache__
 *.pyc
 
 # Environment and data
-jupyterhub.env
+*.env
+*.csv
 jupyterhub/home
+postgres
 
 # For develop
 temp

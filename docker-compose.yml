@@ -4,9 +4,17 @@ services:
   hub:
     build:
       context: ./
-      dockerfile: Dockerfile.jupyterhub
+      dockerfile: dockerfiles/jupyterhub.Dockerfile
     network_mode: host
     env_file:
       - ./jupyterhub.env
     volumes:
       - ./jupyterhub/home:/home
+
+  postgres:
+    image: postgres:10.4
+    network_mode: host
+    env_file:
+      - ./postgres.env
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
