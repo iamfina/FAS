@@ -4,7 +4,7 @@ import json as _json
 import pandas as _pandas
 
 
-def read_rawfas_to_pandas(offset: int=0, limit: int=10000) -> '_pd.DataFrame':
+def read_rawfas_to_pandas(offset: int=0, limit: int=10000) -> '_pandas.DataFrame':
     assert isinstance(offset, int)
     assert isinstance(limit, int)
     with open(os.path.join(sys.prefix, 'credentials.json')) as f:
