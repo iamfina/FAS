@@ -1,7 +1,7 @@
 - name: Build an hub image
   docker_image:
-    path: ./proj_procurement/jupyterhub
-    dockerfile: ./proj_procurement/dockerfiles/jupyterhub.Dockerfile
+    path: "{{ base_dir }}/jupyterhub"
+    dockerfile: "{{ base_dir }}/dockerfiles/jupyterhub.Dockerfile"
     name: pp/hub
     tag: latest
     state: present
