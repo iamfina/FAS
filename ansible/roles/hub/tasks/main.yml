@@ -6,6 +6,11 @@
     tag: latest
     state: present
     force: yes
+    buildargs:
+      pg_user: "{{ postgres_user }}"
+      pg_password: "{{ postgres_password }}"
+      pg_host: "{{ postgres_host }}"
+      pg_db: "{{ postgres_db }}"
   become: yes
   tags:
     - initial
