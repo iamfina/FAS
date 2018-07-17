@@ -12,7 +12,6 @@ seaborn>=0.8.0
 beautifulsoup4>=4.6.0
 catboost>=0.8.1
 graphviz==0.8.2
-ipykernel==4.6.1
 ipyparallel==6.0.2
 plotly==2.1.0
 pydot==1.2.4
