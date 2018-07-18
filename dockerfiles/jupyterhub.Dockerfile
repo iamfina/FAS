@@ -13,7 +13,7 @@ ENV OAUTHENTICATOR_DIR /srv/oauthenticator
 ADD ./jupyterhub/jupyterhub_config.py jupyterhub_config.py
 ADD ./jupyterhub/addusers.sh /srv/oauthenticator/addusers.sh
 ADD ./jupyterhub/userlist /srv/oauthenticator/userlist
-ADD ./jupyterhub/MANUAL.ipynb /vat/tmp/MANUAL.ipynb
+ADD ./jupyterhub/MANUAL.ipynb /var/tmp/MANUAL.ipynb
 RUN chmod 700 /srv/oauthenticator
 
 
