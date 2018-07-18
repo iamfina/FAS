@@ -11,6 +11,7 @@ __pycache__
 *.csv
 jupyterhub/home
 postgres
+.ipynb_checkpoints
 
 # For develop
 temp

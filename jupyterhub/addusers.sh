@@ -8,6 +8,7 @@ for line in `cat userlist`; do
   user=`echo $line | cut -f 1 -d' '`
   echo "adding user $user"
   useradd -m -s /bin/bash $user
+  cp /var/tmp/MANUAL.ipynb /home/$user/MANUAL.ipynb
   chown -R $user:$user /home/$user
 done
 
