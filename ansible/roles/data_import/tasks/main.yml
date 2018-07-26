@@ -1,4 +1,4 @@
-- name: Build an hub image
+- name: Build data import image
   docker_image:
     path: "{{ base_dir }}/packages/models"
     dockerfile: "{{ base_dir }}/dockerfiles/importer.Dockerfile"
@@ -42,7 +42,7 @@
       - name: pp_net
     volumes:
       - "{{ data_import_file_name }}:/app/data.csv:Z"
-    command: "python importer.py --file_name data.csv --class_name fas"
+    command: "python importer.py --file_name data.csv --class_name 223fz"
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"
