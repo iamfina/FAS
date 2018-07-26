@@ -5,7 +5,7 @@ import csv
 from functools import partial
 from typing import Callable, Optional, List
 from pony import orm
-from models import RawFas, FAS_FIELDS_NAMES
+from models import RawFas, Raw222Fz, FAS_FIELDS_NAMES, FZ233_FIELDS_NAMES
 
 csv.field_size_limit(sys.maxsize)
 
@@ -13,7 +13,8 @@ __slots__ = []
 
 
 CLASSES_MAPS = {
-    'fas': (RawFas, FAS_FIELDS_NAMES)
+    'fas': (RawFas, FAS_FIELDS_NAMES),
+    '223fz': (Raw222Fz, FZ233_FIELDS_NAMES)
 }
 
 
@@ -30,7 +31,8 @@ def read_csv_to_callback(file_name: str,
         reader = csv.DictReader(f, fieldnames=fields_list)
         for row in reader:
             if not max_rows or (max_rows and current_row <= max_rows):
-                row.pop('id')
+                if 'id' in row:
+                    row.pop('id')
                 if not header_readied:
                     header_readied = True
                     continue
@@ -76,7 +78,7 @@ if __name__ == '__main__':
                         help='file for read')
     parser.add_argument('--class_name',
                         type=str,
-                        choices=['fas', 'zakupki'],
+                        choices=['fas', '223fz'],
                         required=True,
                         help='class for save in db')
     parser.add_argument('--batch_size',
