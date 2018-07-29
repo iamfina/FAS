@@ -74,10 +74,11 @@ def create_from_csv(path: str, class_name: str, batch_size: int, max_rows: int):
         logging.info(f'Path {path} is dir')
         for f in files:
             try:
-                logging.info(f'Start import {f} from {path}')
+                current = os.path.join(path, f)
+                logging.info(f'Start import {current}')
                 cls_with_filename = partial(cls, source_filename=f)
                 read_csv_to_callback(
-                    file_name=f,
+                    file_name=current,
                     fields_list=fields,
                     callback=partial(create_from_list_rows, cls=cls_with_filename),
                     callback_batch_size=batch_size,
@@ -86,8 +87,7 @@ def create_from_csv(path: str, class_name: str, batch_size: int, max_rows: int):
             except Exception as e:
                 logger.error(e)
             finally:
-                logging.info(f'Stop import {f} from {path}')
-
+                logging.info(f'Stop import')
 
 
 if __name__ == '__main__':
