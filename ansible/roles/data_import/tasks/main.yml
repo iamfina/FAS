@@ -41,8 +41,8 @@
     networks:
       - name: pp_net
     volumes:
-      - "{{ data_import_file_name }}:/app/data.csv:Z"
-    command: "python importer.py --file_name data.csv --class_name 223fz"
+      - "{{ data_import_path_name }}:/app/data:Z"
+    command: "python importer.py --path /app/data --class_name 44fz"
     env:
       POSTGRES_USER: "{{ postgres_user }}"
       POSTGRES_PASSWORD: "{{ postgres_password }}"

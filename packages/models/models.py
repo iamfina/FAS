@@ -110,4 +110,67 @@ class Raw222Fz(db.Entity):
     lots_descriptions = orm.Optional(str)
 
 
+FZ44_FIELDS_NAMES = [
+    'reg_num',
+    'type',
+    'created_at',
+    'url',
+    'ETP_url',
+    'fullname',
+    'customer',
+    'customer_INN',
+    'ETP',
+    'attach_count',
+    'attach_urls',
+    'examination_at',
+    'summing_at',
+    'submission_deadline',
+    'total_max_sum',
+    'OKPD',
+    'preferenses',
+    'requirments',
+    'restrictions',
+    'application_fee',
+    'contract_fee',
+    'description',
+    'lots_descriptions',
+    'qty_undefined',
+    'public_discussion',
+    'modifiction_num',
+    'modified_at',
+]
+
+
+class Raw44Fz(db.Entity):
+    id = orm.PrimaryKey(int, auto=True)
+    reg_num = orm.Optional(str)
+    type = orm.Optional(str)
+    created_at = orm.Optional(str)
+    url = orm.Optional(str)
+    ETP_url = orm.Optional(str)
+    fullname = orm.Optional(str)
+    customer = orm.Optional(str)
+    customer_INN = orm.Optional(str)
+    ETP = orm.Optional(str)
+    attach_count = orm.Optional(str)
+    attach_urls = orm.Optional(str)
+    examination_at = orm.Optional(str)
+    summing_at = orm.Optional(str)
+    submission_deadline = orm.Optional(str)
+    total_max_sum = orm.Optional(str)
+    OKPD = orm.Optional(str)
+    preferenses = orm.Optional(str)
+    requirments = orm.Optional(str)
+    restrictions = orm.Optional(str)
+    application_fee = orm.Optional(str)
+    contract_fee = orm.Optional(str)
+    description = orm.Optional(str)
+    lots_descriptions = orm.Optional(str)
+    qty_undefined = orm.Optional(str)
+    public_discussion = orm.Optional(str)
+    modifiction_num = orm.Optional(str)
+    modified_at = orm.Optional(str)
+    source_filename = orm.Optional(str)
+
+
 db.generate_mapping(create_tables=True)
