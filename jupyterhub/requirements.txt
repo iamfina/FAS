@@ -19,3 +19,4 @@ pydot==1.2.4
 pydotplus==2.0.2
 snowballstemmer==1.2.1
 tqdm==4.19.4
+ner>=0.0.1
